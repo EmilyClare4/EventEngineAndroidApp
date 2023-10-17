@@ -1,13 +1,17 @@
 package com.example.eventengine2;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.eventengine2.data.Event;
 
 import java.util.List;
 
@@ -15,10 +19,20 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     private Context context;
     private List<Event> eventList;
+    private OnItemClickListener onItemClickListener;
 
-    public EventAdapter(Context context, List<Event> eventList) {
+    public EventAdapter(Context context) {
         this.context = context;
-        this.eventList = eventList;
+    }
+
+    // Define an interface for the click listener
+    public interface OnItemClickListener {
+        void onItemClick(View view, Event event);
+    }
+
+    // Set the click listener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
     }
 
     @NonNull
@@ -29,9 +43,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
-        Event event = eventList.get(position);
-        holder.bind(event);
+    public void onBindViewHolder(@NonNull EventViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        Event event = eventList.get(holder.getAdapterPosition());
+        // Set a click listener for the item view
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(v, event);
+                }
+            }
+        });
     }
 
     @Override

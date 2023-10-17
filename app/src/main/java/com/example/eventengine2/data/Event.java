@@ -1,21 +1,39 @@
-package com.example.eventengine2;
+package com.example.eventengine2.data;
 
+import androidx.room.*;
+
+@Entity(tableName = "events", foreignKeys = @ForeignKey(entity = Category.class,
+        parentColumns = "category_id",
+        childColumns = "category_id",
+        onDelete = ForeignKey.CASCADE))
 public class Event {
-    private int id;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "event_id")
+    private int event_id;
     private String title;
     private String description;
     private String location;
     private double cost;
     private int capacity;
     private boolean isIndoors;
-    private Category category; // Many-to-One relationship with Category
-
-    public int getId() {
-        return id;
+    @ColumnInfo(name = "category_id")
+    private int categoryId;
+    Event(String title, String description, String location, double cost, int capacity, boolean isIndoors, int categoryId) {
+        this.title=title;
+        this.description=description;
+        this.location=location;
+        this.cost=cost;
+        this.capacity=capacity;
+        this.isIndoors=isIndoors;
+        this.categoryId=categoryId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getEvent_id() {
+        return event_id;
+    }
+
+    public void setEvent_id(int event_id) {
+        this.event_id = event_id;
     }
 
     public String getTitle() {
@@ -66,11 +84,13 @@ public class Event {
         isIndoors = indoors;
     }
 
-    public Category getCategory() {
-        return category;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
+
 }
+

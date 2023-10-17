@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.eventengine2.data.EventDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Spinner categorySpinner = findViewById(R.id.categorySpinner);
 
         // Replace this with actual category data retrieval logic
@@ -45,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // Handle the case when nothing is selected (if needed)
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
