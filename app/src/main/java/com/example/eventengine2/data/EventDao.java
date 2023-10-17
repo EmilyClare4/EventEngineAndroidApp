@@ -8,12 +8,12 @@ import java.util.List;
 @Dao
 public interface EventDao {
     @Insert
-    void insertEvent(Event event);
+    long insert(Event event);
 
-    @Query("SELECT * FROM events WHERE category_id = :categoryId")
+    @Query("SELECT * FROM events WHERE id = :categoryId")
     List<Event> getEventsByCategory(int categoryId);
 
-    @Query("SELECT * FROM events WHERE event_id = :eventId")
+    @Query("SELECT * FROM events WHERE id = :eventId")
     Event getEventById(int eventId);
 
     // Add other queries as needed

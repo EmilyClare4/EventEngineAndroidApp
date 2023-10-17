@@ -3,37 +3,43 @@ package com.example.eventengine2.data;
 import androidx.room.*;
 
 @Entity(tableName = "events", foreignKeys = @ForeignKey(entity = Category.class,
-        parentColumns = "category_id",
+        parentColumns = "id",
         childColumns = "category_id",
         onDelete = ForeignKey.CASCADE))
 public class Event {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "event_id")
-    private int event_id;
+    @ColumnInfo(name = "id")
+    private long id;
+
+    @ColumnInfo(name = "title")
     private String title;
+
+    @ColumnInfo(name = "description")
     private String description;
-    private String location;
+
+    @ColumnInfo(name = "cost")
     private double cost;
+
+    @ColumnInfo(name = "capacity")
     private int capacity;
-    private boolean isIndoors;
+
     @ColumnInfo(name = "category_id")
-    private int categoryId;
-    Event(String title, String description, String location, double cost, int capacity, boolean isIndoors, int categoryId) {
+    private long categoryId; // Foreign key referencing the category
+
+    public Event(String title, String description, double cost, int capacity, long categoryId) {
         this.title=title;
         this.description=description;
-        this.location=location;
         this.cost=cost;
-        this.capacity=capacity;
-        this.isIndoors=isIndoors;
+        this.capacity=capacity;;
         this.categoryId=categoryId;
     }
 
-    public int getEvent_id() {
-        return event_id;
+    public long getId() {
+        return id;
     }
 
-    public void setEvent_id(int event_id) {
-        this.event_id = event_id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -52,13 +58,6 @@ public class Event {
         this.description = description;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public double getCost() {
         return cost;
@@ -76,19 +75,11 @@ public class Event {
         this.capacity = capacity;
     }
 
-    public boolean isIndoors() {
-        return isIndoors;
-    }
-
-    public void setIndoors(boolean indoors) {
-        isIndoors = indoors;
-    }
-
-    public int getCategoryId() {
+    public long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
     }
 

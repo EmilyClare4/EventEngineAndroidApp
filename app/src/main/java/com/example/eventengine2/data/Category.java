@@ -5,16 +5,21 @@ import androidx.room.*;
 @Entity(tableName = "categories")
 public class Category {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "category_id")
-    private int category_id;
-    private String name;
+    @ColumnInfo(name = "id")
+    private long id;
 
-    public int getCategory_id() {
-        return category_id;
+    @ColumnInfo(name = "name")
+    private String name;
+    public Category(String name) {
+        this.name = name;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -8,10 +8,13 @@ import java.util.List;
 @Dao
 public interface CategoryDao {
     @Insert
-    void insertCategory(Category category);
+    long insert(Category category);
 
     @Query("SELECT * FROM categories")
     List<Category> getAllCategories();
+
+    @Query("SELECT * FROM categories WHERE name = :name")
+    Category getCategory(String name);
 
     // Add other queries as needed
 }

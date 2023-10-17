@@ -25,7 +25,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             return;
         }
 
-        EventDatabase database = EventDatabase.getInstance(this);
+        EventDatabase database = EventDatabase.getDatabase(this);
         EventDao eventDao = database.eventDao();
         event = eventDao.getEventById(eventId);
 

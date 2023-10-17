@@ -22,7 +22,7 @@ public class EventListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
-        EventDatabase db= EventDatabase.getInstance(this);
+        EventDatabase db= EventDatabase.getDatabase(this);
         EventDao eventDao = db.eventDao();
 
         // Bind the RecyclerView from the layout
@@ -39,7 +39,7 @@ public class EventListActivity extends AppCompatActivity {
             public void onItemClick(View view, Event event) {
                 // Retrieve the clicked event based on the position
                 Intent intent = new Intent(EventListActivity.this, EventDetailsActivity.class);
-                intent.putExtra(EventDetailsActivity.EXTRA_EVENT_ID, event.getEvent_id());
+                intent.putExtra(EventDetailsActivity.EXTRA_EVENT_ID, event.getId());
                 startActivity(intent);
             }
         });
