@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.eventengine2.data.Category;
 import com.example.eventengine2.data.CategoryDao;
+import com.example.eventengine2.data.Event;
+import com.example.eventengine2.data.EventDao;
 import com.example.eventengine2.data.EventDatabase;
 import com.example.eventengine2.databinding.ActivityMainBinding;
 
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private EventDatabase eventDatabase;
     private CategoryDao categoryDao;
+    private EventDao eventDao;
     private ArrayAdapter<String> adapter;
     public ActivityMainBinding mMainLayout;
     public int mSelectedCategory = 0;
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Log.d("MyApp", "Database context: " + this);
         eventDatabase = EventDatabase.getDatabase(this);
         categoryDao = eventDatabase.categoryDao();
+        eventDao = eventDatabase.eventDao();
 
         // Replace this with actual category data retrieval logic
         getCategoryDataFromDatabase();
@@ -74,7 +78,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void getCategoryDataFromDatabase() {
         EventDatabase.runOnDatabaseExecutor(() -> {
             List<Category> categories = categoryDao.getAllCategories();
+            List<Event> events = eventDao.getAllEvents();
             Log.d("MyApp", "Categories retrieved: " + categories.size());
+            Log.d("MyApp", "Events retrieved: " + events.size());
             List<String> categoryNames = new ArrayList<>();
             for (Category category : categories) {
                 categoryNames.add(category.getName());
