@@ -1,11 +1,9 @@
 package com.example.eventengine2;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +19,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     private List<Event> eventList;
     private OnItemClickListener onItemClickListener;
 
-    public EventAdapter(Context context) {
+    public EventAdapter(List<Event> events, Context context) {
+        this.eventList = events;
         this.context = context;
     }
 
@@ -45,6 +44,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         Event event = eventList.get(position);
+        holder.bind(event);
         // Set a click listener for the item view
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +58,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     @Override
     public int getItemCount() {
-
         if(eventList !=null) {
             return eventList.size();
         } else return 0;

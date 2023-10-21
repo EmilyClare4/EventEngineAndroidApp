@@ -1,74 +1,57 @@
 package com.example.eventengine2;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.eventengine2.data.Category;
 import com.example.eventengine2.data.Event;
-import com.example.eventengine2.data.EventDao;
 import com.example.eventengine2.data.EventDatabase;
-import java.util.ArrayList;
 import java.util.List;
 
 public class EventListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private EventAdapter eventAdapter;
+    private EventDatabase eventDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
-        EventDatabase db= EventDatabase.getDatabase(this);
-        EventDao eventDao = db.eventDao();
-
-        // Bind the RecyclerView from the layout
+        eventDatabase = EventDatabase.getDatabase(this);
         recyclerView = findViewById(R.id.recyclerViewEvents);
-
-        // Set up the RecyclerView's layout manager
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // Create and set the adapter to display event data
-        eventAdapter = new EventAdapter(this); // Implement this method to retrieve event data
-        recyclerView.setAdapter(eventAdapter);
-        eventAdapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, Event event) {
-                // Retrieve the clicked event based on the position
-                Intent intent = new Intent(EventListActivity.this, EventDetailsActivity.class);
-                intent.putExtra(EventDetailsActivity.EXTRA_EVENT_ID, event.getId());
-                startActivity(intent);
-            }
-        });
-
+        String selectedCategory = getIntent().getStringExtra("selectedCategory");
+        // Use an AsyncTask to perform database operations off the main thread
+        new GetEventsAsyncTask().execute(selectedCategory);
     }
 
-    // Implement this method to retrieve event data
-   /* private List<Event> getEventData() {
-        List<Event> events = new ArrayList<>();
-        // Example Event 1
-        Event event1 = new Event();
-        event1.setTitle("Event 1");
-        event1.setDescription("Description for Event 1");
-        // Set other attributes as needed
-        events.add(event1);
+    private class GetEventsAsyncTask extends AsyncTask<String, Void, List<Event>> {
 
-        // Example Event 2
-        Event event2 = new Event();
-        event2.setTitle("Event 2");
-        event2.setDescription("Description for Event 2");
-        // Set other attributes as needed
-        events.add(event2);
+        @Override
+        protected List<Event> doInBackground(String... categories) {
+            // Get all events within the selected category
+            String selectedCategory = categories[0];
+            Log.d("MyApp", "selectedCategory: " + selectedCategory);
+            return eventDatabase.eventDao().getEventsByCategory(eventDatabase.categoryDao().getCategory(selectedCategory).getId());
+        }
 
-        // Example Event 3
-        Event event3 = new Event();
-        event3.setTitle("Event 3");
-        event3.setDescription("Description for Event 3");
-        // Set other attributes as needed
-        events.add(event3);
-        return events;
-    }*/
+        @Override
+        protected void onPostExecute(List<Event> events) {
+            // Update the UI with the fetched events
+            Log.d("MyApp", "eventList: " + events.size());
+            for (Event event : events) {
+                Log.d("MyApp", "Event ID: " + event.getId());
+            }
+            eventAdapter = new EventAdapter(events, EventListActivity.this);
+            recyclerView.setAdapter(eventAdapter);
+        }
+    }
 }

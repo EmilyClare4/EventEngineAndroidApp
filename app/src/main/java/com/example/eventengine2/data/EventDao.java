@@ -13,11 +13,11 @@ public interface EventDao {
     @Query("SELECT * FROM events")
     List<Event> getAllEvents();
 
-    @Query("SELECT * FROM events WHERE id = :categoryId")
-    List<Event> getEventsByCategory(int categoryId);
+    @Query("SELECT * FROM events WHERE category_id = :categoryId")
+    List<Event> getEventsByCategory(long categoryId);
 
     @Query("SELECT * FROM events WHERE id = :eventId")
-    Event getEventById(int eventId);
+    Event getEventById(long eventId);
 }
 
 
