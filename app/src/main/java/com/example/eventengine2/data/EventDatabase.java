@@ -1,22 +1,18 @@
 package com.example.eventengine2.data;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Category.class, Event.class}, version = 1)
 public abstract class EventDatabase extends RoomDatabase {
 
-
     public abstract CategoryDao categoryDao();
-
     private static volatile EventDatabase INSTANCE;
     public abstract EventDao eventDao();
     private static final int NUMBER_OF_THREADS = 4;
@@ -63,20 +59,6 @@ public abstract class EventDatabase extends RoomDatabase {
                 long c2 = categoryDao.insert(new Category("Dance"));
                 long c3 = categoryDao.insert(new Category("Food and Drink"));
                 long c4 = categoryDao.insert(new Category("Creative"));
-                /*Category category1 = new Category("Sport");
-                Category category2 = new Category("Dance");
-                Category category3 = new Category("Food and Drink");
-                Category category4 = new Category("Creative");
-
-                categoryDao.insert(category1);
-                categoryDao.insert(category2);
-                categoryDao.insert(category3);
-                categoryDao.insert(category4);
-
-                int categoryId1 = category1.getId();
-                int categoryId2 = category2.getId();
-                int categoryId3 = category3.getId();
-                int categoryId4 = category4.getId();*/
 
                 // Example event data with categoryIds matching the Category table
                 EventDao eventDao = INSTANCE.eventDao();
@@ -84,11 +66,6 @@ public abstract class EventDatabase extends RoomDatabase {
                 long event2 = eventDao.insert(new Event("Event 2", "Description for Event 2", 11.0, 5, c2));
                 long event3 = eventDao.insert(new Event("Event 3", "Description for Event 3", 9.0, 20, c2));
                 long event4 = eventDao.insert(new Event("Event 4", "Description for Event 4", 12.0, 10, c4));
-
-               /* eventDao.insertEvent(event1);
-                eventDao.insertEvent(event2);
-                eventDao.insertEvent(event3);
-                eventDao.insertEvent(event4);*/
             });
         }
     };

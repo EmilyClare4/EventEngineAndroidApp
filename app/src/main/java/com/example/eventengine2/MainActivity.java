@@ -19,6 +19,7 @@ import com.example.eventengine2.data.Event;
 import com.example.eventengine2.data.EventDao;
 import com.example.eventengine2.data.EventDatabase;
 import com.example.eventengine2.databinding.ActivityMainBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         // Replace this with actual category data retrieval logic
         getCategoryDataFromDatabase();
+
+        FloatingActionButton fabAddEvent = findViewById(R.id.fab);
+
+        // Set a click listener for the FAB
+        fabAddEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Handle FAB click action here (e.g., navigate to event creation activity)
+                Intent intent = new Intent(MainActivity.this, EventCreationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getCategoryDataFromDatabase() {

@@ -8,4 +8,6 @@
     android:padding="16dp"
     android:background="#FFFFFF"
     tools:context=".EventListActivity"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    />
+

@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eventengine2.data.Category;
 import com.example.eventengine2.data.Event;
 import com.example.eventengine2.data.EventDatabase;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.List;
 
 public class EventListActivity extends AppCompatActivity {
@@ -29,6 +31,18 @@ public class EventListActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewEvents);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         String selectedCategory = getIntent().getStringExtra("selectedCategory");
+
+        FloatingActionButton fabAddEvent = findViewById(R.id.fab);
+
+        // Set a click listener for the FAB
+        fabAddEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Handle FAB click action here (e.g., navigate to event creation activity)
+                Intent intent = new Intent(EventListActivity.this, EventCreationActivity.class);
+                startActivity(intent);
+            }
+        });
         // Use an AsyncTask to perform database operations off the main thread
         new GetEventsAsyncTask().execute(selectedCategory);
     }

@@ -18,6 +18,7 @@ public interface EventDao {
 
     @Query("SELECT * FROM events WHERE id = :eventId")
     Event getEventById(long eventId);
+
 }
 
 
