@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eventengine2.data.Category;
@@ -15,6 +17,7 @@ import com.example.eventengine2.data.Event;
 import com.example.eventengine2.data.EventDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventListActivity extends AppCompatActivity {
@@ -32,19 +35,21 @@ public class EventListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         String selectedCategory = getIntent().getStringExtra("selectedCategory");
 
+        eventAdapter = new EventAdapter(new ArrayList<>(), this); // Initialize with an empty list
+        recyclerView.setAdapter(eventAdapter);
+
+        // Use an AsyncTask to perform database operations off the main thread
+        new GetEventsAsyncTask().execute(selectedCategory);
+
         FloatingActionButton fabAddEvent = findViewById(R.id.fab);
 
-        // Set a click listener for the FAB
+        // Set a click listener for the FAB to open the event creation fragment
         fabAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Handle FAB click action here (e.g., navigate to event creation activity)
-                Intent intent = new Intent(EventListActivity.this, EventCreationActivity.class);
-                startActivity(intent);
+                openEventCreationFragment();
             }
         });
-        // Use an AsyncTask to perform database operations off the main thread
-        new GetEventsAsyncTask().execute(selectedCategory);
     }
 
     private class GetEventsAsyncTask extends AsyncTask<String, Void, List<Event>> {
@@ -67,5 +72,15 @@ public class EventListActivity extends AppCompatActivity {
             eventAdapter = new EventAdapter(events, EventListActivity.this);
             recyclerView.setAdapter(eventAdapter);
         }
+    }
+
+    private void openEventCreationFragment() {
+        Log.d("MyApp", "Opening event creation fragment");
+        // Create and show the event creation fragment
+        EventCreationFragment fragment = new EventCreationFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)  // This is optional, adds to the back stack so that you can navigate back
+                .commit();
     }
 }

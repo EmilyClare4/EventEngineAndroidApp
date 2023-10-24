@@ -1,21 +1,17 @@
 package com.example.eventengine2;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.eventengine2.data.Category;
 import com.example.eventengine2.data.CategoryDao;
-import com.example.eventengine2.data.Event;
 import com.example.eventengine2.data.EventDao;
 import com.example.eventengine2.data.EventDatabase;
 import com.example.eventengine2.databinding.ActivityMainBinding;
@@ -48,17 +44,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Replace this with actual category data retrieval logic
         getCategoryDataFromDatabase();
 
-        FloatingActionButton fabAddEvent = findViewById(R.id.fab);
+        /*FloatingActionButton fabAddEvent = findViewById(R.id.fab);
 
         // Set a click listener for the FAB
         fabAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Handle FAB click action here (e.g., navigate to event creation activity)
-                Intent intent = new Intent(MainActivity.this, EventCreationActivity.class);
+                Intent intent = new Intent(MainActivity.this, EventCreationFragment.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     private void getCategoryDataFromDatabase() {
