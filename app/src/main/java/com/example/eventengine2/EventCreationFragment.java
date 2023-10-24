@@ -21,6 +21,7 @@ public class EventCreationFragment extends Fragment {
     private EditText capacityEditText;
     private TextView catTextView;
     private EventDatabase eventDatabase;
+    private EventAdapter eventAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,10 +51,13 @@ public class EventCreationFragment extends Fragment {
                 eventDatabase = EventDatabase.getDatabase(requireContext());
                 EventDatabase.runOnDatabaseExecutor(() -> {
                             eventDatabase.eventDao().insert(event);
+                    eventAdapter.addEvent(event);  // Add the new event to the adapter's dataset
+                    eventAdapter.notifyDataSetChanged();
                 });
 
                 // Provide feedback to the user
                 Toast.makeText(requireContext(), "Event created successfully", Toast.LENGTH_SHORT).show();
+                //getActivity().getSupportFragmentManager().beginTransaction().remove(EventCreationFragment.this).commit();
             }
         });
 
