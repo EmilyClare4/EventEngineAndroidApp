@@ -18,11 +18,18 @@ public class EventDetailActivity extends AppCompatActivity {
 
         // Display event details in the activity
         if (event != null) {
+
             TextView titleTextView = findViewById(R.id.titleTextView);
             TextView descriptionTextView = findViewById(R.id.descriptionTextView);
+            TextView costTextView = findViewById(R.id.costTextView);
+            TextView capacityTextView = findViewById(R.id.capacityTextView);
+            TextView categoryTextView = findViewById(R.id.categoryTextView);
 
             titleTextView.setText(event.getTitle());
             descriptionTextView.setText(event.getDescription());
+            costTextView.setText(String.format("%.2f", event.getCost()));
+            capacityTextView.setText(Integer.toString(event.getCapacity()));
+            //categoryTextView.setText(event.getCategoryId());
         }
     }
 }
