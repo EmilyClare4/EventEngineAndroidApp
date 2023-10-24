@@ -16,10 +16,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     private Context context;
     private List<Event> eventList;
+    private String selectedCategory;
 
-    public EventAdapter(List<Event> events, Context context) {
+    public EventAdapter(List<Event> events, Context context, String selectedCategory) {
         this.eventList = events;
         this.context = context;
+        this.selectedCategory = selectedCategory;
     }
 
     @NonNull
@@ -41,6 +43,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 // Start the EventDetailActivity and pass the event details
                 Intent intent = new Intent(context, EventDetailActivity.class);
                 intent.putExtra("event", event);
+                intent.putExtra("selectedCategory", selectedCategory);
                 context.startActivity(intent);
             }
         });
@@ -57,17 +60,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     public class EventViewHolder extends RecyclerView.ViewHolder {
         private TextView titleTextView;
-        //private TextView descriptionTextView;
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
-            //descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
         }
 
         public void bind(Event event) {
             titleTextView.setText(event.getTitle());
-            //descriptionTextView.setText(event.getDescription());
         }
     }
 }

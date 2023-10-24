@@ -18,6 +18,7 @@ public class EventListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private EventAdapter eventAdapter;
     private EventDatabase eventDatabase;
+    private String selectedCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +27,10 @@ public class EventListActivity extends AppCompatActivity {
         eventDatabase = EventDatabase.getDatabase(this);
         recyclerView = findViewById(R.id.recyclerViewEvents);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        String selectedCategory = getIntent().getStringExtra("selectedCategory");
+        selectedCategory = getIntent().getStringExtra("selectedCategory");
 
         // DO I NEED THIS?? CHECK
-        eventAdapter = new EventAdapter(new ArrayList<>(), this); // Initialize with an empty list
+        eventAdapter = new EventAdapter(new ArrayList<>(), this, selectedCategory); // Initialize with an empty list
         recyclerView.setAdapter(eventAdapter);
 
         // Use an AsyncTask to perform database operations off the main thread
@@ -53,7 +54,7 @@ public class EventListActivity extends AppCompatActivity {
         @Override
         protected List<Event> doInBackground(String... categories) {
             // Get all events within the selected category
-            String selectedCategory = categories[0];
+            selectedCategory = categories[0];
             Log.d("MyApp", "selectedCategory: " + selectedCategory);
             return eventDatabase.eventDao().getEventsByCategory(eventDatabase.categoryDao().getCategory(selectedCategory).getId());
         }
@@ -65,7 +66,7 @@ public class EventListActivity extends AppCompatActivity {
             for (Event event : events) {
                 Log.d("MyApp", "Event ID: " + event.getId());
             }
-            eventAdapter = new EventAdapter(events, EventListActivity.this);
+            eventAdapter = new EventAdapter(events, EventListActivity.this, selectedCategory);
             recyclerView.setAdapter(eventAdapter);
         }
     }

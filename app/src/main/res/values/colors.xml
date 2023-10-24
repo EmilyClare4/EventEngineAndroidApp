@@ -10,6 +10,8 @@
 
     <color name="titles">#C63D2F</color>
 
+    <color name="fab_colour">#C63D2F</color>
+
     <!-- GRADIENT -->
     <color name="startColour">#FFBB5C</color>
     <color name="centerColour">#FF9B50</color>

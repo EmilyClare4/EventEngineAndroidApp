@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.eventengine2.data.Category;
 import com.example.eventengine2.data.Event;
+import com.example.eventengine2.data.EventDatabase;
 
 public class EventDetailActivity extends AppCompatActivity {
 
@@ -27,9 +30,9 @@ public class EventDetailActivity extends AppCompatActivity {
 
             titleTextView.setText(event.getTitle());
             descriptionTextView.setText(event.getDescription());
-            costTextView.setText(String.format("%.2f", event.getCost()));
-            capacityTextView.setText(Integer.toString(event.getCapacity()));
-            //categoryTextView.setText(event.getCategoryId());
+            costTextView.setText(String.format("$%.2f", event.getCost()));
+            capacityTextView.setText(Integer.toString(event.getCapacity()) + " people");
+            categoryTextView.setText(getIntent().getStringExtra("selectedCategory"));
         }
     }
 }

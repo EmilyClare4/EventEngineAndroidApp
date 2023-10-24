@@ -1,45 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     android:background="@drawable/background_gradient">
 
+    <!-- Title -->
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:text="Event Title" />
+        android:text="Event Title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Description -->
+    <TextView
+        android:id="@+id/descriptionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Description:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <TextView
         android:id="@+id/descriptionTextView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:text="Event Description" />
+        android:text="Event Description"
+        app:layout_constraintStart_toEndOf="@+id/descriptionLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/descriptionLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/descriptionLabel"
+        android:layout_marginStart="10dp"/>
+
+    <!-- Cost -->
+    <TextView
+        android:id="@+id/costLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Cost:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
 
     <TextView
         android:id="@+id/costTextView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:text="Event Cost" />
+        android:text="Event Cost"
+        app:layout_constraintStart_toStartOf="@+id/descriptionTextView"
+        app:layout_constraintTop_toTopOf="@+id/costLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/costLabel" />
+
+    <!-- Capacity -->
+    <TextView
+        android:id="@+id/capacityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Capacity:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/costTextView" />
 
     <TextView
         android:id="@+id/capacityTextView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:text="Event Capacity" />
+        android:text="Event Capacity"
+        app:layout_constraintStart_toStartOf="@+id/descriptionTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/capacityLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/capacityLabel" />
+
+    <!-- Category -->
+    <TextView
+        android:id="@+id/categoryLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Category:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/capacityTextView" />
 
     <TextView
         android:id="@+id/categoryTextView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:text="Event Category" />
-</LinearLayout>
+        android:text="Event Category"
+        app:layout_constraintStart_toStartOf="@+id/descriptionTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/categoryLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/categoryLabel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
