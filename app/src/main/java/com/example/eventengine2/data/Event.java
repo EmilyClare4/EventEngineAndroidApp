@@ -2,11 +2,13 @@ package com.example.eventengine2.data;
 
 import androidx.room.*;
 
+import java.io.Serializable;
+
 @Entity(tableName = "events", foreignKeys = @ForeignKey(entity = Category.class,
         parentColumns = "id",
         childColumns = "category_id",
         onDelete = ForeignKey.CASCADE))
-public class Event {
+public class Event implements Serializable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private long id;

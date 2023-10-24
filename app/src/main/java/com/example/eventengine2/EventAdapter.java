@@ -1,66 +1,54 @@
 package com.example.eventengine2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.eventengine2.data.Event;
-
 import java.util.List;
+
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
     private Context context;
     private List<Event> eventList;
-    private OnItemClickListener onItemClickListener;
 
     public EventAdapter(List<Event> events, Context context) {
         this.eventList = events;
         this.context = context;
     }
 
-    // Define an interface for the click listener
-    public interface OnItemClickListener {
-        void onItemClick(View view, Event event);
-    }
-
-    // Set the click listener
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.onItemClickListener = listener;
-    }
-
     @NonNull
     @Override
     public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.event_item, parent, false);
-        return new EventViewHolder(view);
+        View v = LayoutInflater.from(context).inflate(R.layout.event_item, parent, false);
+        return new EventViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         Event event = eventList.get(position);
         holder.bind(event);
+
         // Set a click listener for the item view
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(v, event);
-                }
+                // Start the EventDetailActivity and pass the event details
+                Intent intent = new Intent(context, EventDetailActivity.class);
+                intent.putExtra("event", event);
+                context.startActivity(intent);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        if(eventList !=null) {
-            return eventList.size();
-        } else return 0;
+        return eventList.size();
     }
 
     public class EventViewHolder extends RecyclerView.ViewHolder {
