@@ -57,17 +57,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     public class EventViewHolder extends RecyclerView.ViewHolder {
         private TextView titleTextView;
-        private TextView descriptionTextView;
+        //private TextView descriptionTextView;
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
-            descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
+            //descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
         }
 
         public void bind(Event event) {
             titleTextView.setText(event.getTitle());
-            descriptionTextView.setText(event.getDescription());
+            //descriptionTextView.setText(event.getDescription());
         }
     }
 }

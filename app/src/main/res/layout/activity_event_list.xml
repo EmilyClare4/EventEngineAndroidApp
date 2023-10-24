@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_700"
+    android:background="@drawable/background_gradient"
     tools:context=".EventListActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -15,7 +15,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:src="@drawable/baseline_add_circle_outline_24"
-        app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -48,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
-        android:background="@color/cardview_light_background"
+        android:background="@drawable/recyclerview_bg"
         android:padding="10dp"
         android:orientation="horizontal">
         <androidx.recyclerview.widget.RecyclerView
@@ -63,8 +62,6 @@
             app:layout_constraintBottom_toTopOf="@+id/fragmentContainer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-
-
     </LinearLayout>
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
@@ -74,12 +71,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="#E91E63"
+        android:background="#FFBB5C"
         tools:ignore="NotSibling" />
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 

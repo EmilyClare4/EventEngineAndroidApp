@@ -3,20 +3,16 @@ package com.example.eventengine2;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
 import com.example.eventengine2.data.Category;
 import com.example.eventengine2.data.CategoryDao;
 import com.example.eventengine2.data.EventDao;
 import com.example.eventengine2.data.EventDatabase;
 import com.example.eventengine2.databinding.ActivityMainBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private EventDao eventDao;
     private ArrayAdapter<String> adapter;
     public ActivityMainBinding mMainLayout;
-    public int mSelectedCategory = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +36,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         categoryDao = eventDatabase.categoryDao();
         eventDao = eventDatabase.eventDao();
 
-        // Replace this with actual category data retrieval logic
         getCategoryDataFromDatabase();
-
-        /*FloatingActionButton fabAddEvent = findViewById(R.id.fab);
-
-        // Set a click listener for the FAB
-        fabAddEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Handle FAB click action here (e.g., navigate to event creation activity)
-                Intent intent = new Intent(MainActivity.this, EventCreationFragment.class);
-                startActivity(intent);
-            }
-        });*/
     }
 
     private void getCategoryDataFromDatabase() {
@@ -62,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             List<Category> categories = categoryDao.getAllCategories();
             Log.d("MyApp", "Categories retrieved: " + categories.size());
             List<String> categoryNames = new ArrayList<>();
-            // Add the "Select a category" as the initial item
+            // Add "Select a category" as the initial item
             categoryNames.add("Select a category");
             for (Category category : categories) {
                 categoryNames.add(category.getName());
@@ -70,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             mMainLayout.categorySpinner.post(() -> {
                 adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categoryNames);
                 mMainLayout.categorySpinner.setAdapter(adapter);
-                mMainLayout.categorySpinner.setSelection(0); // Select the initial item
-                mMainLayout.categorySpinner.setOnItemSelectedListener(this); // Set the listener
+                mMainLayout.categorySpinner.setSelection(0);
+                mMainLayout.categorySpinner.setOnItemSelectedListener(this);
             });
         });
     }
@@ -80,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String selectedCategory = parent.getItemAtPosition(position).toString();
         if (!selectedCategory.equals("Select a category")) {
-            // Create an Intent to start the EventListActivity
             Intent intent = new Intent(MainActivity.this, EventListActivity.class);
             intent.putExtra("selectedCategory", selectedCategory);
             startActivity(intent);
@@ -91,6 +72,5 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }

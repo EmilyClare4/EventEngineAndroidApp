@@ -4,15 +4,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.eventengine2.data.Event;
 import com.example.eventengine2.data.EventDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +23,12 @@ public class EventListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
-
         eventDatabase = EventDatabase.getDatabase(this);
         recyclerView = findViewById(R.id.recyclerViewEvents);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         String selectedCategory = getIntent().getStringExtra("selectedCategory");
 
+        // DO I NEED THIS?? CHECK
         eventAdapter = new EventAdapter(new ArrayList<>(), this); // Initialize with an empty list
         recyclerView.setAdapter(eventAdapter);
 
@@ -40,13 +37,12 @@ public class EventListActivity extends AppCompatActivity {
 
         FloatingActionButton fabAddEvent = findViewById(R.id.fab);
 
-        Bundle bundle = new Bundle();
-        bundle.putString("currentCategory", selectedCategory);
-
         // Set a click listener for the FAB to open the event creation fragment
         fabAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("currentCategory", selectedCategory);
                 openEventCreationFragment(bundle);
             }
         });
@@ -81,7 +77,7 @@ public class EventListActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, fragment)
-                .addToBackStack(null)  // This is optional, adds to the back stack so that you can navigate back
+                .addToBackStack(null)
                 .commit();
     }
 }
