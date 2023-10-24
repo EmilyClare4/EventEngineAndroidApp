@@ -11,7 +11,7 @@ public class EventDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.event_item);
+        setContentView(R.layout.activity_event_detail);
 
         // Get the event details from the intent
         Event event = (Event) getIntent().getSerializableExtra("event");
