@@ -1,6 +1,7 @@
 package com.example.eventengine2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,12 @@ public class EventCreationFragment extends Fragment {
         costEditText = view.findViewById(R.id.costEditText);
         capacityEditText = view.findViewById(R.id.capacityEditText);
         catTextView = view.findViewById(R.id.catTextView);
+        Bundle arguments = getArguments();
+        String currentCategory = arguments.getString("currentCategory");
+        Log.d("MyApp", "Current Category: " + currentCategory);
+        // Do something with the current category, e.g., display it in a TextView
+        catTextView.setText(currentCategory);
+
 
         Button createEventButton = view.findViewById(R.id.saveButton);
 
@@ -43,13 +50,13 @@ public class EventCreationFragment extends Fragment {
                 double cost = Double.parseDouble(costEditText.getText().toString());
                 int capacity = Integer.parseInt(capacityEditText.getText().toString());
 
-
-                // Adjust the event creation logic as needed
-                Event event = new Event(title, description, cost, capacity, 2);
-
                 // Access the database and insert the event
-                eventDatabase = EventDatabase.getDatabase(requireContext());
+
                 EventDatabase.runOnDatabaseExecutor(() -> {
+                    eventDatabase = EventDatabase.getDatabase(requireContext());
+                    long categoryId = eventDatabase.categoryDao().getCategory(currentCategory).getId();
+                    // Adjust the event creation logic as needed
+                    Event event = new Event(title, description, cost, capacity, categoryId);
                             eventDatabase.eventDao().insert(event);
                     eventAdapter.addEvent(event);  // Add the new event to the adapter's dataset
                     eventAdapter.notifyDataSetChanged();

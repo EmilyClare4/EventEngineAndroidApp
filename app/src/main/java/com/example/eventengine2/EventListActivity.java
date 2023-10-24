@@ -1,18 +1,14 @@
 package com.example.eventengine2;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.eventengine2.data.Category;
+
 import com.example.eventengine2.data.Event;
 import com.example.eventengine2.data.EventDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,6 +26,7 @@ public class EventListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
+
         eventDatabase = EventDatabase.getDatabase(this);
         recyclerView = findViewById(R.id.recyclerViewEvents);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -43,11 +40,14 @@ public class EventListActivity extends AppCompatActivity {
 
         FloatingActionButton fabAddEvent = findViewById(R.id.fab);
 
+        Bundle bundle = new Bundle();
+        bundle.putString("currentCategory", selectedCategory);
+
         // Set a click listener for the FAB to open the event creation fragment
         fabAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openEventCreationFragment();
+                openEventCreationFragment(bundle);
             }
         });
     }
@@ -74,10 +74,11 @@ public class EventListActivity extends AppCompatActivity {
         }
     }
 
-    private void openEventCreationFragment() {
+    private void openEventCreationFragment(Bundle bundle) {
         Log.d("MyApp", "Opening event creation fragment");
         // Create and show the event creation fragment
         EventCreationFragment fragment = new EventCreationFragment();
+        fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, fragment)
                 .addToBackStack(null)  // This is optional, adds to the back stack so that you can navigate back
