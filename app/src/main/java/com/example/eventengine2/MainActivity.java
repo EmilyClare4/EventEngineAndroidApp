@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(mMainLayout.getRoot());
 
         // Initialize the EventDatabase instance
-        Log.d("MyApp", "Database context: " + this);
         eventDatabase = EventDatabase.getDatabase(this);
         categoryDao = eventDatabase.categoryDao();
         eventDao = eventDatabase.eventDao();
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void getCategoryDataFromDatabase() {
         EventDatabase.runOnDatabaseExecutor(() -> {
             List<Category> categories = categoryDao.getAllCategories();
-            Log.d("MyApp", "Categories retrieved: " + categories.size());
             List<String> categoryNames = new ArrayList<>();
             // Add "Select a category" as the initial item
             categoryNames.add("Select a category");
@@ -65,8 +63,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Intent intent = new Intent(MainActivity.this, EventListActivity.class);
             intent.putExtra("selectedCategory", selectedCategory);
             startActivity(intent);
-        } else {
-            Toast.makeText(MainActivity.this, "Please select a category.", Toast.LENGTH_SHORT).show();
         }
     }
 

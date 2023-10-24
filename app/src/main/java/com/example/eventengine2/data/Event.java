@@ -1,7 +1,6 @@
 package com.example.eventengine2.data;
 
 import androidx.room.*;
-
 import java.io.Serializable;
 
 @Entity(tableName = "events", foreignKeys = @ForeignKey(entity = Category.class,

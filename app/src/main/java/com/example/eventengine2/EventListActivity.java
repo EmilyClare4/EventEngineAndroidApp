@@ -55,24 +55,18 @@ public class EventListActivity extends AppCompatActivity {
         protected List<Event> doInBackground(String... categories) {
             // Get all events within the selected category
             selectedCategory = categories[0];
-            Log.d("MyApp", "selectedCategory: " + selectedCategory);
             return eventDatabase.eventDao().getEventsByCategory(eventDatabase.categoryDao().getCategory(selectedCategory).getId());
         }
 
         @Override
         protected void onPostExecute(List<Event> events) {
             // Update the UI with the fetched events
-            Log.d("MyApp", "eventList: " + events.size());
-            for (Event event : events) {
-                Log.d("MyApp", "Event ID: " + event.getId());
-            }
             eventAdapter = new EventAdapter(events, EventListActivity.this, selectedCategory);
             recyclerView.setAdapter(eventAdapter);
         }
     }
 
     private void openEventCreationFragment(Bundle bundle) {
-        Log.d("MyApp", "Opening event creation fragment");
         // Create and show the event creation fragment
         EventCreationFragment fragment = new EventCreationFragment();
         fragment.setArguments(bundle);

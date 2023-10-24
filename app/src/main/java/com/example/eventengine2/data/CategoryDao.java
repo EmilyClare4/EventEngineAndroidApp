@@ -15,7 +15,4 @@ public interface CategoryDao {
 
     @Query("SELECT * FROM categories WHERE name = :name")
     Category getCategory(String name);
-
-    @Query("SELECT * FROM categories WHERE id = :id")
-    Category getCategory(long id);
 }

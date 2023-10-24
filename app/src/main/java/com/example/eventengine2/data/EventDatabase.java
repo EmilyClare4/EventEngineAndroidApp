@@ -1,7 +1,6 @@
 package com.example.eventengine2.data;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
