@@ -1,10 +1,13 @@
 package com.example.eventengine2;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eventengine2.data.Event;
+import com.example.eventengine2.data.EventDatabase;
 
 public class EventDetailActivity extends AppCompatActivity {
 
@@ -30,6 +33,22 @@ public class EventDetailActivity extends AppCompatActivity {
             costTextView.setText(String.format("$%.2f", event.getCost()));
             capacityTextView.setText(Integer.toString(event.getCapacity()) + " people");
             categoryTextView.setText(getIntent().getStringExtra("selectedCategory"));
+
+            // Initialize the 'Delete' button
+            Button deleteButton = findViewById(R.id.deleteButton);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Delete the event from the database
+                    EventDatabase.runOnDatabaseExecutor(() -> {
+                        EventDatabase eventDatabase = EventDatabase.getDatabase(EventDetailActivity.this);
+                        eventDatabase.eventDao().deleteEvent(event.getId());
+
+                        // Return to the EventListActivity
+                        finish();
+                    });
+                }
+            });
         }
     }
 }

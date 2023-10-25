@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eventengine2.data.Event;
 import com.example.eventengine2.data.EventDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +32,8 @@ public class EventListActivity extends AppCompatActivity {
         selectedCategory = getIntent().getStringExtra("selectedCategory");
 
         // DO I NEED THIS?? CHECK
-        eventAdapter = new EventAdapter(new ArrayList<>(), this, selectedCategory); // Initialize with an empty list
-        recyclerView.setAdapter(eventAdapter);
+        //eventAdapter = new EventAdapter(new ArrayList<>(), this, selectedCategory); // Initialize with an empty list
+        //recyclerView.setAdapter(eventAdapter);
 
         // Use an AsyncTask to perform database operations off the main thread
         new GetEventsAsyncTask().execute(selectedCategory);

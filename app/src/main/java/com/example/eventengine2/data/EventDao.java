@@ -1,6 +1,7 @@
 package com.example.eventengine2.data;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import java.util.List;
@@ -19,6 +20,8 @@ public interface EventDao {
     @Query("SELECT * FROM events WHERE id = :eventId")
     Event getEventById(long eventId);
 
+    @Query("DELETE FROM events WHERE id=:id")
+    void deleteEvent(long id);
 }
 
 
