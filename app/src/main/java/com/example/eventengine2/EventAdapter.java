@@ -53,10 +53,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         return eventList.size();
     }
 
-    public void addEvent(Event event) {
-        eventList.add(event);
-    }
-
     public class EventViewHolder extends RecyclerView.ViewHolder {
         private TextView titleTextView;
 

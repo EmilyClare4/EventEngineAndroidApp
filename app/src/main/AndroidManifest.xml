@@ -24,7 +24,7 @@
             android:label="@string/title_event_detail"
             android:theme="@style/Theme.EventEngine2" />
         <activity
-            android:name=".EventCreationFragment"
+            android:name=".EventCreationActivity"
             android:exported="false"
             android:label="@string/title_event_creation"
             android:theme="@style/Theme.EventEngine2" />

@@ -1,5 +1,6 @@
 package com.example.eventengine2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +35,6 @@ public class EventDetailActivity extends AppCompatActivity {
             capacityTextView.setText(Integer.toString(event.getCapacity()) + " people");
             categoryTextView.setText(getIntent().getStringExtra("selectedCategory"));
 
-            // Initialize the 'Delete' button
             Button deleteButton = findViewById(R.id.deleteButton);
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -43,9 +43,9 @@ public class EventDetailActivity extends AppCompatActivity {
                     EventDatabase.runOnDatabaseExecutor(() -> {
                         EventDatabase eventDatabase = EventDatabase.getDatabase(EventDetailActivity.this);
                         eventDatabase.eventDao().deleteEvent(event.getId());
-
                         // Return to the EventListActivity
-                        finish();
+                        Intent intent = new Intent(EventDetailActivity.this, EventListActivity.class);
+                        startActivity(intent);
                     });
                 }
             });
