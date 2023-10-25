@@ -28,7 +28,7 @@ public class EventCreationActivity extends AppCompatActivity {
         descriptionEditText = findViewById(R.id.descriptionEditText);
         costEditText = findViewById(R.id.costEditText);
         capacityEditText = findViewById(R.id.capacityEditText);
-        catTextView = findViewById(R.id.catTextView);
+        catTextView = findViewById(R.id.categoryEditText);
         String category = getIntent().getStringExtra("selectedCategory");
         catTextView.setText(category);
 
