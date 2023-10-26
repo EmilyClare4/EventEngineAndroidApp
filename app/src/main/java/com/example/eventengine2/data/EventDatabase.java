@@ -34,18 +34,6 @@ public abstract class EventDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-   /* public static synchronized EventDatabase getInstance(Context context) {
-
-        if (INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            EventDatabase.class, "event_database")
-                    .fallbackToDestructiveMigration()
-                    //.addCallback(roomCallback)  // Add a callback to insert initial data
-                    .build();
-        }
-        return INSTANCE;
-    }*/
-
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -54,18 +42,30 @@ public abstract class EventDatabase extends RoomDatabase {
                 // Insert initial categories into the Category table
                 CategoryDao categoryDao = INSTANCE.categoryDao();
 
-                // Example category data
+                // Category data
                 long c1 = categoryDao.insert(new Category("Sport"));
                 long c2 = categoryDao.insert(new Category("Dance"));
                 long c3 = categoryDao.insert(new Category("Food and Drink"));
                 long c4 = categoryDao.insert(new Category("Creative"));
 
-                // Example event data with categoryIds matching the Category table
+                // Initial event data
                 EventDao eventDao = INSTANCE.eventDao();
-                long event1 = eventDao.insert(new Event("Event 1", "Description for Event 1", 10.0, 5, c1));
-                long event2 = eventDao.insert(new Event("Event 2", "Description for Event 2", 11.0, 5, c2));
-                long event3 = eventDao.insert(new Event("Event 3", "Description for Event 3", 9.0, 20, c2));
-                long event4 = eventDao.insert(new Event("Event 4", "Description for Event 4", 12.0, 10, c4));
+                eventDao.insert(new Event("Cosy Cafe", "Enjoy a nice relaxing coffee and catch up", 5.0, 8, c3));
+                eventDao.insert(new Event("Ice Skating", "Let's get frozen together!", 15.0, 20, c1));
+                eventDao.insert(new Event("Hike", "Join us for some fresh air", 0.0, 30, c1));
+                eventDao.insert(new Event("Paint 'n' Sip", "Get creative while enjoying a glass of wine", 25.0, 10, c4));
+                eventDao.insert(new Event("Bouldering", "Challenge yourself mentally and physically", 15.0, 10, c1));
+                eventDao.insert(new Event("Ceramic Painting", "Decorate your own piece of pottery", 30.0, 6, c4));
+                eventDao.insert(new Event("Delicious Dinner", "Share some tasty dishes from around the world", 40.0, 12, c3));
+                eventDao.insert(new Event("Burlesque", "Gain some confidence with a burlesque dance class", 10.0, 10, c2));
+                eventDao.insert(new Event("Yoga in the Park", "Bring your own mat and join us for some stretching", 5.0, 15, c1));
+                eventDao.insert(new Event("Salsa Dancing", "Learn some moves at salsa dancing", 25.0, 10, c2));
+                eventDao.insert(new Event("Game Night", "Get competitive with some new board games", 8.0, 18, c4));
+                eventDao.insert(new Event("Padel", "Come and learn how to play Padel", 8.0, 18, c1));
+                eventDao.insert(new Event("SUP", "Test your balance on a paddle board", 20.0, 18, c1));
+                eventDao.insert(new Event("Kickboxing", "Learn how to throw some serious punches", 8.0, 16, c1));
+                eventDao.insert(new Event("Run club", "Be part of our couch-to-5km", 0.0, 40, c1));
+                eventDao.insert(new Event("Football fun", "Kick a ball around and get some exercise", 0.0, 10, c1));
             });
         }
     };
@@ -73,22 +73,5 @@ public abstract class EventDatabase extends RoomDatabase {
     public static void runOnDatabaseExecutor(Runnable r) {
         databaseWriteExecutor.execute(r);
     }
-   /* private static volatile EventDatabase INSTANCE;
-    private static final int NUMBER_OF_THREADS = 4;
-    static final ExecutorService databaseWriteExecutor =
-            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static EventDatabase getDatabase(final Context context) {
-        if (INSTANCE == null) { //If database doesn't exist
-            synchronized (EventDatabase.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    EventDatabase.class, "event_database")
-                            .addCallback(sRoomDatabaseCallback)
-                            .build();
-                }
-            }
-        }
-        return INSTANCE;
-    }*/
 }

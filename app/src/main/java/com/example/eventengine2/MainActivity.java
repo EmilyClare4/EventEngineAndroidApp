@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         EventDatabase.runOnDatabaseExecutor(() -> {
             List<Category> categories = categoryDao.getAllCategories();
             List<String> categoryNames = new ArrayList<>();
-            // Add "Select a category" as the initial item
             categoryNames.add("Select a category");
             for (Category category : categories) {
                 categoryNames.add(category.getName());

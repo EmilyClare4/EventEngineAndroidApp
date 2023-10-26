@@ -1,7 +1,6 @@
 package com.example.eventengine2;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,15 +29,12 @@ public class EventListActivity extends AppCompatActivity  {
         selectedCategory = getIntent().getStringExtra("selectedCategory");
 
         eventRepository = new EventRepository();
-
         updateEventList(selectedCategory);
 
         FloatingActionButton fabAddEvent = findViewById(R.id.fab);
-        // Set a click listener for the FAB to open the event creation fragment
         fabAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Start the EventCreationActivity and pass the event details
                 Intent intent = new Intent(EventListActivity.this, EventCreationActivity.class);
                 intent.putExtra("selectedCategory", selectedCategory);
                 startActivity(intent);
