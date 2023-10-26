@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import com.example.eventengine2.data.Category;
 import com.example.eventengine2.data.CategoryDao;
-import com.example.eventengine2.data.EventDao;
 import com.example.eventengine2.data.EventDatabase;
 import com.example.eventengine2.databinding.ActivityMainBinding;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private EventDatabase eventDatabase;
     private CategoryDao categoryDao;
-    private EventDao eventDao;
     private ArrayAdapter<String> adapter;
     public ActivityMainBinding mMainLayout;
 
@@ -31,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Initialize the EventDatabase instance
         eventDatabase = EventDatabase.getDatabase(this);
         categoryDao = eventDatabase.categoryDao();
-        eventDao = eventDatabase.eventDao();
 
         getCategoryDataFromDatabase();
     }

@@ -36,15 +36,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         holder.bind(event);
 
         // Set a click listener for the item view
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the EventDetailActivity and pass the event details
-                Intent intent = new Intent(context, EventDetailActivity.class);
-                intent.putExtra("event", event);
-                intent.putExtra("selectedCategory", selectedCategory);
-                context.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            // Start the EventDetailActivity and pass the event details
+            Intent intent = new Intent(context, EventDetailActivity.class);
+            intent.putExtra("event", event);
+            intent.putExtra("selectedCategory", selectedCategory);
+            context.startActivity(intent);
         });
     }
 

@@ -2,16 +2,13 @@ package com.example.eventengine2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.eventengine2.data.Event;
 import com.example.eventengine2.data.EventDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import java.util.List;
+
 
 public class EventListActivity extends AppCompatActivity  {
 
@@ -34,34 +31,21 @@ public class EventListActivity extends AppCompatActivity  {
         updateEventList(selectedCategory);
 
         FloatingActionButton fabAddEvent = findViewById(R.id.fab);
-        fabAddEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EventListActivity.this, EventCreationActivity.class);
-                intent.putExtra("selectedCategory", selectedCategory);
-                startActivity(intent);
-            }
+        fabAddEvent.setOnClickListener(view -> {
+            Intent intent = new Intent(EventListActivity.this, EventCreationActivity.class);
+            intent.putExtra("selectedCategory", selectedCategory);
+            startActivity(intent);
         });
 
         Button close = findViewById(R.id.homeButton);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        close.setOnClickListener(v -> finish());
     }
 
     private void updateEventList(String category) {
-        eventRepository.getEventsByCategory(category, eventDatabase, new EventRepository.Callback<List<Event>>() {
-            @Override
-            public void onComplete(List<Event> events) {
-                runOnUiThread(() -> {
-                    eventAdapter = new EventAdapter(events, EventListActivity.this, category);
-                    recyclerView.setAdapter(eventAdapter);
-                });
-            }
-        });
+        eventRepository.getEventsByCategory(category, eventDatabase, events -> runOnUiThread(() -> {
+            eventAdapter = new EventAdapter(events, EventListActivity.this, category);
+            recyclerView.setAdapter(eventAdapter);
+        }));
     }
 
     @Override

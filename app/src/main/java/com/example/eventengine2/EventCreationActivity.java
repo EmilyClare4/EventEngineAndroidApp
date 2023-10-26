@@ -1,15 +1,10 @@
 package com.example.eventengine2;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eventengine2.data.Event;
 import com.example.eventengine2.data.EventDatabase;
@@ -36,36 +31,23 @@ public class EventCreationActivity extends AppCompatActivity {
         catTextView.setText(category);
 
         Button createEventButton = findViewById(R.id.saveButton);
-        createEventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String title = titleEditText.getText().toString();
-                String description = descriptionEditText.getText().toString();
-                double cost = Double.parseDouble(costEditText.getText().toString());
-                int capacity = Integer.parseInt(capacityEditText.getText().toString());
+        createEventButton.setOnClickListener(v -> {
+            String title = titleEditText.getText().toString();
+            String description = descriptionEditText.getText().toString();
+            double cost = Double.parseDouble(costEditText.getText().toString());
+            int capacity = Integer.parseInt(capacityEditText.getText().toString());
 
-                EventDatabase.runOnDatabaseExecutor(() -> {
-                    eventDatabase = EventDatabase.getDatabase(EventCreationActivity.this);
-                    long categoryId = eventDatabase.categoryDao().getCategory(category).getId();
-                    Event event = new Event(title, description, cost, capacity, categoryId);
-                    eventDatabase.eventDao().insert(event);
-                    finish();
-
-                });
-
-                // Provide feedback to the user
-                Toast.makeText(EventCreationActivity.this, "Event created successfully", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-
+            EventDatabase.runOnDatabaseExecutor(() -> {
+                eventDatabase = EventDatabase.getDatabase(EventCreationActivity.this);
+                long categoryId = eventDatabase.categoryDao().getCategory(category).getId();
+                Event event = new Event(title, description, cost, capacity, categoryId);
+                eventDatabase.eventDao().insert(event);
+            });
+            Toast.makeText(EventCreationActivity.this, "Event created successfully", Toast.LENGTH_SHORT).show();
+            finish();
         });
 
         Button close = findViewById(R.id.closeButton);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        close.setOnClickListener(v -> finish());
     }
 }
