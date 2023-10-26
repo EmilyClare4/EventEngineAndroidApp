@@ -65,6 +65,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        // Reset the spinner selection to "Select a category" when the activity is resumed
+        mMainLayout.categorySpinner.setSelection(0);
+    }
+
+    @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
 }

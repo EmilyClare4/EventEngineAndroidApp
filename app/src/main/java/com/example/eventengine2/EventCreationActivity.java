@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eventengine2.data.Event;
 import com.example.eventengine2.data.EventDatabase;
@@ -46,13 +49,15 @@ public class EventCreationActivity extends AppCompatActivity {
                     long categoryId = eventDatabase.categoryDao().getCategory(category).getId();
                     Event event = new Event(title, description, cost, capacity, categoryId);
                     eventDatabase.eventDao().insert(event);
-                    Intent intent = new Intent(EventCreationActivity.this, EventListActivity.class);
-                    startActivity(intent);
+                    finish();
+
                 });
 
                 // Provide feedback to the user
                 Toast.makeText(EventCreationActivity.this, "Event created successfully", Toast.LENGTH_SHORT).show();
+                finish();
             }
+
         });
     }
 }

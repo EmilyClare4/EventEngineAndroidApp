@@ -44,8 +44,7 @@ public class EventDetailActivity extends AppCompatActivity {
                         EventDatabase eventDatabase = EventDatabase.getDatabase(EventDetailActivity.this);
                         eventDatabase.eventDao().deleteEvent(event.getId());
                         // Return to the EventListActivity
-                        Intent intent = new Intent(EventDetailActivity.this, EventListActivity.class);
-                        startActivity(intent);
+                        finish();
                     });
                 }
             });

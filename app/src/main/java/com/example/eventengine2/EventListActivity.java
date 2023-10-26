@@ -14,9 +14,10 @@ import java.util.List;
 
 public class EventListActivity extends AppCompatActivity  {
 
-    private RecyclerView recyclerView;
-    private EventAdapter eventAdapter;
-    private EventDatabase eventDatabase;
+    private static RecyclerView recyclerView;
+    private static EventAdapter eventAdapter;
+    private static EventDatabase eventDatabase;
+    private EventRepository eventRepository;
     private String selectedCategory;
 
     @Override
@@ -28,8 +29,9 @@ public class EventListActivity extends AppCompatActivity  {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         selectedCategory = getIntent().getStringExtra("selectedCategory");
 
-        // Use an AsyncTask to perform database operations off the main thread
-        new GetEventsAsyncTask().execute(selectedCategory);
+        eventRepository = new EventRepository();
+
+        updateEventList(selectedCategory);
 
         FloatingActionButton fabAddEvent = findViewById(R.id.fab);
         // Set a click listener for the FAB to open the event creation fragment
@@ -44,24 +46,21 @@ public class EventListActivity extends AppCompatActivity  {
         });
     }
 
-    private class GetEventsAsyncTask extends AsyncTask<String, Void, List<Event>> {
-
-        @Override
-        protected List<Event> doInBackground(String... categories) {
-            // Get all events within the selected category
-            selectedCategory = categories[0];
-            return eventDatabase.eventDao().getEventsByCategory(eventDatabase.categoryDao().getCategory(selectedCategory).getId());
-        }
-
-        protected void onPostExecute(List<Event> events) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    // Update the UI with the fetched events on the main UI thread
-                    eventAdapter = new EventAdapter(events, EventListActivity.this, selectedCategory);
+    private void updateEventList(String category) {
+        eventRepository.getEventsByCategory(category, eventDatabase, new EventRepository.Callback<List<Event>>() {
+            @Override
+            public void onComplete(List<Event> events) {
+                runOnUiThread(() -> {
+                    eventAdapter = new EventAdapter(events, EventListActivity.this, category);
                     recyclerView.setAdapter(eventAdapter);
-                }
-            });
-        }
+                });
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateEventList(selectedCategory);
     }
 }
