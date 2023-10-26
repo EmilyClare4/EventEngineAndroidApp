@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eventengine2.data.Event;
@@ -44,8 +46,17 @@ public class EventDetailActivity extends AppCompatActivity {
                         EventDatabase eventDatabase = EventDatabase.getDatabase(EventDetailActivity.this);
                         eventDatabase.eventDao().deleteEvent(event.getId());
                         // Return to the EventListActivity
+                        Toast.makeText(EventDetailActivity.this, "Event deleted successfully", Toast.LENGTH_SHORT).show();
                         finish();
                     });
+                }
+            });
+
+            Button close = findViewById(R.id.closeButton);
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
                 }
             });
         }

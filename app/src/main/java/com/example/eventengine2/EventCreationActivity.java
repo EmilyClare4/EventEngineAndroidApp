@@ -31,7 +31,7 @@ public class EventCreationActivity extends AppCompatActivity {
         descriptionEditText = findViewById(R.id.descriptionEditText);
         costEditText = findViewById(R.id.costEditText);
         capacityEditText = findViewById(R.id.capacityEditText);
-        catTextView = findViewById(R.id.categoryEditText);
+        catTextView = findViewById(R.id.categoryTextView);
         String category = getIntent().getStringExtra("selectedCategory");
         catTextView.setText(category);
 
@@ -58,6 +58,14 @@ public class EventCreationActivity extends AppCompatActivity {
                 finish();
             }
 
+        });
+
+        Button close = findViewById(R.id.closeButton);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
         });
     }
 }
