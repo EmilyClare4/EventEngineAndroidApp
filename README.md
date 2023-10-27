@@ -11,3 +11,13 @@ of a new, exciting event to plan so I wanted to create an "Event Engine" where e
 - One current bug is that the category spinner doesn't populate on initial launch so the app has be re-run
 - To see the recyclerview in action without having to add multiple events, select the 'Sport' category
 - Users can add their own events to each category, or delete events
+
+## Screenshots
+
+<img src="https://github.com/EmilyClare4/EventEngineAndroidApp/assets/92970399/6c37f4f7-9f1e-4bac-9ed2-421a2f85df49" width="200" height="300">
+<img src="https://github.com/EmilyClare4/EventEngineAndroidApp/assets/92970399/3abdc61b-37fe-478b-b530-94ae831c24e5" width="200" height="300">
+<img src="https://github.com/EmilyClare4/EventEngineAndroidApp/assets/92970399/1201b0d2-0a74-47b3-adce-86f20cd4daa2" width="200" height="300">
+<img src="https://github.com/EmilyClare4/EventEngineAndroidApp/assets/92970399/447828c8-67f2-434c-baf5-a879cdeb9f28" width="200" height="300">
+
+## Image credit
+<a href="https://www.flaticon.com/free-icons/event" title="event icons">Event icons created by Freepik - Flaticon</a>
