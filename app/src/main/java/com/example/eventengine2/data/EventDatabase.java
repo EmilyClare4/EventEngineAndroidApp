@@ -25,7 +25,6 @@ public abstract class EventDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     EventDatabase.class, "event_database")
-                            .fallbackToDestructiveMigration()
                             .addCallback(roomCallback)
                             .build();
                 }

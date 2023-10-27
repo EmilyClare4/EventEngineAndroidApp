@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import com.example.eventengine2.data.Category;
-import com.example.eventengine2.data.CategoryDao;
 import com.example.eventengine2.data.EventDatabase;
 import com.example.eventengine2.databinding.ActivityMainBinding;
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EventDatabase eventDatabase;
-    private CategoryDao categoryDao;
     private ArrayAdapter<String> adapter;
     public ActivityMainBinding mMainLayout;
 
@@ -26,16 +24,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mMainLayout = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mMainLayout.getRoot());
 
-        // Initialize the EventDatabase instance
         eventDatabase = EventDatabase.getDatabase(this);
-        categoryDao = eventDatabase.categoryDao();
 
-        getCategoryDataFromDatabase();
+        getCategorySpinner();
     }
 
-    private void getCategoryDataFromDatabase() {
+    private void getCategorySpinner() {
         EventDatabase.runOnDatabaseExecutor(() -> {
-            List<Category> categories = categoryDao.getAllCategories();
+            List<Category> categories = eventDatabase.categoryDao().getAllCategories();
             List<String> categoryNames = new ArrayList<>();
             categoryNames.add("Select a category");
             for (Category category : categories) {
@@ -63,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onResume() {
         super.onResume();
-        // Reset the spinner selection to "Select a category" when the activity is resumed
         mMainLayout.categorySpinner.setSelection(0);
     }
 
