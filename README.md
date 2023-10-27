@@ -8,7 +8,7 @@ of a new, exciting event to plan so I wanted to create an "Event Engine" where e
 - Emily Ferguson
 
 ## Notes on use
-- One current bug is that the category spinner doesn't populate on initial launch so the app has be re-run
+- One current bug is that the category spinner doesn't populate on initial launch when database hasn't been initialised. After the initial launch of the app it works fine on any re-runs
 - To see the recyclerview in action without having to add multiple events, select the 'Sport' category
 - Users can add their own events to each category, or delete events
 
