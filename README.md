@@ -12,6 +12,10 @@ of a new, exciting event to plan so I wanted to create an "Event Engine" where e
 - To see the recyclerview in action without having to add multiple events, select the 'Sport' category
 - Users can add their own events to each category, or delete events
 
+## Future development plans:
+- Fix category spinner bug
+- Design - create more modern spinner and make welcome page more modern with more info
+
 ## Screenshots
 
 <img src="https://github.com/EmilyClare4/EventEngineAndroidApp/assets/92970399/6c37f4f7-9f1e-4bac-9ed2-421a2f85df49" width="200" height="300">
