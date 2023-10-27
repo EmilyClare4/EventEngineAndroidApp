@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorAccent">@color/fab_colour</item>
     </style>
   <!-- Base application theme. -->
     <style name="Base.Theme.EventEngine2" parent="Theme.Material3.DayNight.NoActionBar">
